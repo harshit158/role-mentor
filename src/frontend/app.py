@@ -1,4 +1,6 @@
 import streamlit as st
+import utils
+
 st.set_page_config(layout="wide")
 
 st.title("Role Mentor")
@@ -21,4 +23,10 @@ with st.sidebar:
 audio_value = st.audio_input("Record a voice message.", key="audio1")
 
 if audio_value:
+    transcription = utils.transcribe_audio(audio_value)
+    transcription_generator = utils.create_generator(transcription)
     st.audio(audio_value)
+    st.write_stream(transcription_generator)
+    
+    speech = utils.text_to_speech(transcription)
+    st.audio("speech.wav")
