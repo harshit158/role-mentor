@@ -1,32 +1,24 @@
 import streamlit as st
-import utils
+from src.frontend import utils
+from src.frontend.models import Message
 
 st.set_page_config(layout="wide")
 
-st.title("Role Mentor")
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-with st.sidebar:
-    st.image("/Users/harshit/Documents/Projects/role-mentor/src/assets/logo.jpg", width=1500)
-    with st.popover("Settings", use_container_width=True):
-        st.text_input("Open AI Key", key="openai_key")
-        st.button("Apply", use_container_width=True)
-        
-    st.divider()
+utils.display_logo_in_center()
+st.divider()
+
+utils.display_sidebar()
+
+cols = st.columns([25, 50, 25])
+with cols[1]:
+    # display main chat box
+    with st.container(border=True, height=800):
+        utils.display_messages()
     
-    st.title("Sessions")
-    col = st.columns(1)[0]
-    with col:
-        st.button("Session 1", use_container_width=True)
-        st.button("Session 2", use_container_width=True)
-
-# Record audio
-audio_value = st.audio_input("Record a voice message.", key="audio1")
-
-if audio_value:
-    transcription = utils.transcribe_audio(audio_value)
-    transcription_generator = utils.create_generator(transcription)
-    st.audio(audio_value)
-    st.write_stream(transcription_generator)
-    
-    speech = utils.text_to_speech(transcription)
-    st.audio("speech.wav")
+    audio_value = st.audio_input("Record a voice message.", key=f"audio{len(st.session_state.messages)}")
+    if audio_value:
+        utils.process_audio_input(audio_value)
+        st.rerun()
