@@ -3,6 +3,7 @@ from functools import lru_cache
 from dotenv import load_dotenv
 from src.frontend.models import Role, Message
 import streamlit as st
+from src.frontend.views import Profile
 
 load_dotenv()
 
@@ -80,14 +81,7 @@ def display_logo_in_center():
 
 def display_sidebar():
     with st.sidebar:
-        display_in_center("Role Mentor", size=1)    
-        with st.popover("Settings", width="stretch"):
-            st.text_input("Open AI Key", key="openai_key")
-            st.button("Apply", width="stretch")
-            
-        st.divider()
-        
-        st.title("Sessions")
+        st.title("History")
         col = st.columns(1)[0]
         with col:
             st.button("Session 1", width="stretch")
