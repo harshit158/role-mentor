@@ -1,4 +1,6 @@
 import streamlit as st
+import sys
+import streamlit.web.cli as stcli
 from src.frontend import utils
 from src.frontend.models import Message
 
@@ -14,3 +16,7 @@ pg = st.navigation(["views/Profile.py",
                     "views/Home.py"])
 
 pg.run()
+
+def main():
+    sys.argv = ["streamlit", "run", "src/frontend/app.py"]
+    sys.exit(stcli.main())
