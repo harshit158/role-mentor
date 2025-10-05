@@ -10,3 +10,6 @@ class Message(BaseModel):
     role: Role
     content: str
     audio: Optional[bytes] = None
+    
+class InputMessage(BaseModel):
+    content: str

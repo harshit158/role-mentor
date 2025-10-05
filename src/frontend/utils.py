@@ -1,7 +1,7 @@
 import time
 from functools import lru_cache
 from dotenv import load_dotenv
-from src.frontend.models import Role, Message
+from src.models import Role, Message
 import streamlit as st
 from src.frontend.views import Profile
 
