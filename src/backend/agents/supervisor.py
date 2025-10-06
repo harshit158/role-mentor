@@ -8,8 +8,6 @@ from langgraph.graph.message import add_messages
 
 from langchain_ollama import ChatOllama
 
-from src.models import Role, Message
-
 class State(TypedDict):
     messages: Annotated[list, add_messages]
 

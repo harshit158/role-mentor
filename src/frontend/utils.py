@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from src.models import Role, Message
 import streamlit as st
 from src.frontend.views import Profile
+from src.frontend import api_utils
 
 load_dotenv()
 
@@ -97,12 +98,11 @@ def display_messages():
             with cols[1]:
                 st.audio(message.audio)
 
-def process_audio_input(audio_value):
-    if audio_value:
-        audio_bytes = audio_value.read()
-        audio_value.seek(0)
-        transcription = transcribe_audio(audio_value, test=False)
-        st.session_state.messages.append(Message(role=Role.USER,
-                                                 content=transcription, 
-                                                 audio=audio_bytes))
-        invoke_interviewer()
+def get_transcript(audio_value):
+    audio_bytes = audio_value.read()
+    audio_value.seek(0)
+    transcription = transcribe_audio(audio_value, test=False)
+    return transcription
+        # st.session_state.messages.append(Message(role=Role.USER,
+        #                                          content=transcription, 
+        #                                          audio=audio_bytes))

@@ -2,11 +2,11 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 load_dotenv()
 
-from .routers import agents
+from .routers import router_agents
 
 app = FastAPI()
 
-app.include_router(agents.router)
+app.include_router(router_agents.router)
 
 def main():
     import uvicorn

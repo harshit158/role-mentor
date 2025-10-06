@@ -1,5 +1,6 @@
 import streamlit as st
 from src.frontend import utils
+from src.frontend import api_utils
 
 cols = st.columns([25, 50, 25])
 with cols[1]:
@@ -9,7 +10,8 @@ with cols[1]:
     
     audio_value = st.audio_input("Record a voice message.", key=f"audio{len(st.session_state.messages)}")
     if audio_value:
-        utils.process_audio_input(audio_value)
+        transcription = utils.get_transcript(audio_value)
+        _ = api_utils.invoke_interviewer(transcription)
         st.rerun()
 
 utils.display_sidebar()
