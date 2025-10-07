@@ -88,15 +88,18 @@ def display_sidebar():
             st.button("Session 1", width="stretch")
             st.button("Session 2", width="stretch")
 
-def display_messages():
-    for message in st.session_state.get("messages", []):
-        avatar = "src/assets/message_avatar.jpg" if message.role.value == Role.ASSISTANT.value else None
-        with st.chat_message(message.role.value, avatar=avatar):
+def display_messages(user_id: str):
+    # TODO: Convert this to async
+    messages = api_utils.get_conversation(user_id)
+    
+    for message in messages:
+        avatar = "src/assets/message_avatar.jpg" if message.type == Role.AI.value else None
+        with st.chat_message(message.type, avatar=avatar):
             cols = st.columns([70, 30])
             with cols[0]:
                 st.write(message.content)
-            with cols[1]:
-                st.audio(message.audio)
+            # with cols[1]:
+            #     st.audio(message.audio)
 
 def get_transcript(audio_value):
     audio_bytes = audio_value.read()

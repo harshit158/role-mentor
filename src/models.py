@@ -4,8 +4,8 @@ from enum import Enum
 from typing import Optional
 
 class Role(Enum):
-    USER = "user"
-    ASSISTANT = "assistant"
+    HUMAN = "human"
+    AI = "ai"
     
 class Message(BaseModel):
     role: Role

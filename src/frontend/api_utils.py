@@ -8,7 +8,10 @@ def invoke_interviewer(message: str):
     response = requests.post(url, json={"messages": [{"role": "user", "content": message}]})
     return response.json()
 
-def get_conversation(user_id: str) -> models.Conversation:
+def get_conversation(user_id: str) -> list[models.AIMessage | models.HumanMessage]:
     url = URL.format(endpoint=f"history/{user_id}")
     response = requests.get(url)
-    return response.json()
+    
+    messages = response.json()["messages"]
+    messages = [models.AIMessage(**x) if x["type"] == "ai" else models.HumanMessage(**x) for x in messages]
+    return messages
