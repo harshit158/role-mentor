@@ -3,8 +3,8 @@ from src import models
 
 URL = "http://localhost:8000/{endpoint}"
 
-def invoke_interviewer(message: str):
-    url = URL.format(endpoint="chat")
+def invoke_interviewer(message: str, user_id: str):
+    url = URL.format(endpoint=f"chat/{user_id}")
     response = requests.post(url, json={"messages": [{"role": "user", "content": message}]})
     return response.json()
 

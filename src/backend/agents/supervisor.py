@@ -27,7 +27,7 @@ def chatbot(state: State):
     messages = [system_message] + state["messages"] if len(state["messages"])==1 else state["messages"]
     return {"messages": [llm.invoke(messages)]}
 
-def get_graph(memory):
+def get_graph_builder():
     
     # == Add nodes ==
     graph_builder = StateGraph(State)
@@ -37,7 +37,4 @@ def get_graph(memory):
     graph_builder.add_edge(START, "chatbot")
     graph_builder.add_edge("chatbot", END)
 
-    # == Compile graph ==
-    graph = graph_builder.compile(checkpointer=memory)
-    
-    return graph
+    return graph_builder

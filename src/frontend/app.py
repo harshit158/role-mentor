@@ -2,7 +2,6 @@ import streamlit as st
 import sys
 import streamlit.web.cli as stcli
 from src.frontend import utils
-from src.models import Message
 
 st.set_page_config(layout="wide")
 
