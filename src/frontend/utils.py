@@ -88,7 +88,7 @@ def display_sidebar():
             st.button("Session 1", width="stretch")
             st.button("Session 2", width="stretch")
 
-def display_messages(user_id: str):
+def display_messages(user_id: str) -> int:
     # TODO: Convert this to async
     messages = api_utils.get_conversation(user_id)
     
@@ -100,6 +100,8 @@ def display_messages(user_id: str):
                 st.write(message.content)
             # with cols[1]:
             #     st.audio(message.audio)
+    
+    return len(messages)
 
 def get_transcript(audio_value):
     audio_bytes = audio_value.read()

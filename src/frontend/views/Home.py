@@ -7,9 +7,9 @@ with cols[1]:
     user_id = st.selectbox("User_ID", ["1", "2", "3", "4", "5"], key="user_id")
     
     with st.container(border=True, height=800):
-        utils.display_messages(user_id)
+        total_messages = utils.display_messages(user_id)
     
-    audio_value = st.audio_input("Record a voice message.", key=f"audio{len(st.session_state.messages)}")
+    audio_value = st.audio_input("Record a voice message.", key=f"audio{total_messages}")
     if audio_value:
         transcription = utils.get_transcript(audio_value)
         api_utils.invoke_interviewer(transcription, user_id)
